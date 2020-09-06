@@ -23,14 +23,15 @@ df = df[['close']] # want chart to be based off close price
 df.reset_index(level=0, inplace=True)
 df.columns=['ds','pri']
 
+
 sma50 = df.pri.rolling(window=50).mean() # 50 day simple moving average
 sma200 = df.pri.rolling(window=200).mean() # 200 day simple moving average
 ema20 = df.pri.ewm(span=20, adjust=False).mean() # 20 day EMA
 
-plt.plot(df.ds, df.pri, label=ticker, color = 'black') # Plots the price chart of the ticker
-plt.plot(df.ds, sma50, label='SMA(50) ' + str(sma50), color = 'blue')
-plt.plot(df.ds, sma200, label='SMA(200) ' + str(sma200), color = 'red')
-plt.plot(df.ds, ema20, label='EMA(20) ' + str(ema20), color = 'green')
+plt.plot(df.ds, df.pri, label=ticker + ' ' + str(round(df.pri.iloc[-1], 2)), color = 'black') # Plots the price chart of the ticker
+plt.plot(df.ds, sma50, label='SMA(50) ' + str(round(sma50.iloc[-1], 2)), color = 'blue') # Plots the SMA(50) of the ticker
+plt.plot(df.ds, sma200, label='SMA(200) ' + str(round(sma200.iloc[-1], 2)), color = 'red') # Plots the SMA(200) of the ticker
+plt.plot(df.ds, ema20, label='EMA(20) ' + str(round(ema20.iloc[-1], 2)), color = 'green') # Plots the EMA(20) of the ticker
 plt.legend(loc='upper left')
 
 
